@@ -9,7 +9,7 @@ int main(int argc, char** argv){
 	int ghettoTime = 300;
 
 	sf::Font font;
-  font.loadFromFile("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf");
+  font.loadFromFile("../assets/fonts/LiberationSerif-Regular.ttf");
 
 	sf::Text text("SMOKE WEED EVERYDAY", font, 18);
 	text.setColor(sf::Color::White);
