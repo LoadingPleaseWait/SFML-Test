@@ -24,7 +24,7 @@ int main(int argc, char** argv){
 	sf::Sprite logo(logoTexture);
 
 	sf::Music coco;
-	coco.openFromFile("../assets/music/coco.mp3");
+	coco.openFromFile("../assets/music/coco.ogg");
 	coco.play();
 
 	while (window.isOpen()){
@@ -39,7 +39,7 @@ int main(int argc, char** argv){
 		if (ghettoTime == 0){
 			text.setPosition(rand() % (int) (640 * 1.5), rand() % (int) (360 * 1.5));
 			sf::Color randomColor(rand() % 255, rand() % 255, rand() % 255);
-			text.setColor(randomColor);
+			//text.setColor(randomColor);
 			ghettoTime = 300;
 		}
 
