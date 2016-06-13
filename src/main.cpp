@@ -2,14 +2,18 @@
 #include "SFML/Graphics.hpp"
 #include <stdlib.h>
 
+sf::Color randomColor();
+
 int main(int argc, char** argv){
 	sf::RenderWindow window(sf::VideoMode(640 * 1.5, 360 * 1.5), "SFML-Test");
 
 	sf::Event event;
-	int ghettoTime = 300;
+	sf::Clock clock;
+
+	sf::Color background = sf::Color::Black;
 
 	sf::Font font;
-  font.loadFromFile("../assets/fonts/LiberationSerif-Regular.ttf");
+	font.loadFromFile("../assets/fonts/LiberationSerif-Regular.ttf");
 
 	sf::Text text("SMOKE WEED EVERYDAY", font, 18);
 	text.setColor(sf::Color::White);
@@ -52,11 +56,11 @@ int main(int argc, char** argv){
 		}
 
 		// use timer and random number generator
-		if (ghettoTime == 0){
+		if (clock.getElapsedTime().asSeconds() >= 0.5) {
 			text.setPosition(rand() % (int) (640 * 1.5), rand() % (int) (360 * 1.5));
-			sf::Color randomColor(rand() % 255, rand() % 255, rand() % 255);
-			//text.setColor(randomColor);
-			ghettoTime = 300;
+			text.setColor(randomColor());
+			background = randomColor();
+			clock.restart();
 		}
 
 		// move coco guy sprite
@@ -76,13 +80,17 @@ int main(int argc, char** argv){
 		// logo stays with mouse
 		logo.setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 
-		window.clear(sf::Color::Black);
+		window.clear(background);
 		window.draw(logo);
 		window.draw(cocoGuy);
 		window.draw(text);
 		window.display();
-		ghettoTime--;
 	}
 
 	return 0;
+}
+
+sf::Color randomColor() {
+	sf::Color color(rand() % 255, rand() % 255, rand() % 255);
+	return color;
 }
