@@ -25,13 +25,29 @@ int main(int argc, char** argv){
 
 	sf::Music coco;
 	coco.openFromFile("../assets/music/coco.ogg");
+	coco.setLoop(true);
 	coco.play();
+
+	sf::Music eclipse;
+	eclipse.openFromFile("../assets/music/eclipse.ogg");
+	eclipse.setLoop(true);
 
 	while (window.isOpen()){
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				// allow window to be closed
 				window.close();
+			} else if (event.type == sf::Event::KeyReleased) {
+				if (event.key.code == sf::Keyboard::Space) {
+					// change music
+					if (coco.getStatus() != sf::SoundSource::Stopped) {
+						coco.stop();
+						eclipse.play();
+					} else {
+						eclipse.stop();
+						coco.play();
+					}
+				}
 			}
 		}
 
