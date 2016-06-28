@@ -52,7 +52,11 @@ int main(int argc, char** argv){
 						coco.play();
 					}
 				}
-			}
+			} else if (event.type == sf::Event::Resized) {
+				//make window bounds consistent if resized
+				sf::FloatRect view(0, 0, event.size.width, event.size.height);
+				window.setView(sf::View(view));
+			}	
 		}
 
 		// use timer and random number generator
@@ -63,17 +67,17 @@ int main(int argc, char** argv){
 			clock.restart();
 		}
 
-		// move coco guy sprite
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		// move coco guy sprite if it does not move out of bounds
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !(cocoGuy.getPosition().x < 0)) {
 			cocoGuy.move(-1, 0);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !(cocoGuy.getPosition().x > (window.getSize().x - cocoGuy.getGlobalBounds().width))) {
 			cocoGuy.move(1, 0);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && !(cocoGuy.getPosition().y > (window.getSize().y - cocoGuy.getGlobalBounds().height))) {
 			cocoGuy.move(0, 1);
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !(cocoGuy.getPosition().y < 0)) {
 			cocoGuy.move(0, -1);
 		}
 
